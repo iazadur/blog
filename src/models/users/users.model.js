@@ -28,14 +28,14 @@ async function getOneUserByEmail(email) {
 async function getOneUserByToken(hashedToken) {
   return await User.findOne({
     passwordResetToken: hashedToken,
-    passwordResetExpires: { $gt: Date.now() },
+    passwordResetExpires: { $gt: Date.now() }
   });
 }
 
 async function updateMe(_id, currentUpdate) {
   return await User.findByIdAndUpdate(_id, currentUpdate, {
     new: true,
-    runValidators: true,
+    runValidators: true
   });
 }
 
@@ -52,7 +52,7 @@ async function getAllUsers(queryString) {
 async function updateUser(_id, currentUpdate) {
   return await User.findByIdAndUpdate(_id, currentUpdate, {
     new: true,
-    runValidators: true,
+    runValidators: true
   });
 }
 
@@ -68,5 +68,5 @@ module.exports = {
   updateMe,
   getAllUsers,
   updateUser,
-  deleteUser,
+  deleteUser
 };

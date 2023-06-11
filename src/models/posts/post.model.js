@@ -11,7 +11,7 @@ async function getAllPosts(queryString) {
   return await features.query;
 }
 async function getOnePostById(_id) {
-  return await Post.findById(_id).select('+password');
+  return await Post.findById(_id);
 }
 
 async function createPost(currentPost) {

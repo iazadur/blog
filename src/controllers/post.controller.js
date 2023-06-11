@@ -1,10 +1,10 @@
 const {
-  createPost,
-  getOnePostById,
   getAllPosts,
+  getOnePostById,
+  createPost,
   updatePost,
   deletePost
-} = require('../models/posts/posts.model');
+} = require('../models/posts/post.model');
 const AppError = require('../services/AppError');
 
 async function httpGetAllPosts(req, res, next) {
@@ -15,8 +15,7 @@ async function httpGetAllPosts(req, res, next) {
 }
 
 async function httpCreatePost(req, res, next) {
-  console.log("hiii");
-
+  req.body.isVerified = true;
   // This time Admin is creating a new post so give whole body because admin can create another admin.
   const post = await createPost(req.body);
   return res.status(201).json({ status: 'success', data: { post } });
