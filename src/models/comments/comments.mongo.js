@@ -16,5 +16,10 @@ const commentSchema = new Schema(
   }
 );
 
+commentSchema.pre(/^find/, function (next) {
+  this.populate("author")
+  next();
+});
+
 const Comment = model('Comment', commentSchema);
 module.exports = Comment;

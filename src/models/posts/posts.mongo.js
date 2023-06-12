@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const subjectSchema = new Schema(
+const postSchema = new Schema(
   {
     title: {
       type: String,
@@ -23,5 +23,10 @@ const subjectSchema = new Schema(
   }
 );
 
-const Subject = model('Subject', subjectSchema);
-module.exports = Subject;
+postSchema.pre(/^find/, function (next) {
+  this.populate("author")
+  next();
+});
+
+const Post = model('Post', postSchema);
+module.exports = Post;
