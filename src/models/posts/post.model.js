@@ -1,15 +1,35 @@
 const ApiFeatures = require('../../services/ApiFeatures');
 const Post = require('./posts.mongo');
 
-async function getAllPosts(queryString) {
-  const features = new ApiFeatures(Post.find(), queryString)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
+// async function getAllPosts(queryString) {
+//   const features = new ApiFeatures(Post.find(), queryString)
+//     .filter()
+//     .sort()
+//     .limitFields()
+//     .paginate();
 
-  return await features.query;
+//   return await features.query;
+// }
+
+async function getAllPosts(queryString) {
+  let query = Post.find();
+
+  if (queryString.userId == 'undefined' || queryString.userId == 'null') {
+
+    const posts = await query.populate('author');
+
+    return posts;
+  }
+  if (queryString.userId) {
+    // Fetch posts based on userId
+    query = query.where('author').equals(queryString.userId);
+  }
+
+  const posts = await query.populate('author');
+
+  return posts;
 }
+
 async function getOnePostById(_id) {
   return await Post.findById(_id);
 }
