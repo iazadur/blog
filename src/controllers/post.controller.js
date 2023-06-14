@@ -11,7 +11,7 @@ async function httpGetAllPosts(req, res, next) {
   const posts = await getAllPosts(req.query);
   return res
     .status(200)
-    .json({ status: 'success', results: posts.length, data: { posts } });
+    .json({ status: 'success', results: posts.length, posts  });
 }
 
 async function httpCreatePost(req, res, next) {
